@@ -1,0 +1,157 @@
+#top {
+    background-color: #fa2937;
+    width: 100%;
+    background-repeat: repeat;
+    background-position: top left;
+    background-image: url("https://images.getbento.com/accounts/ee85a68df770d664f090dd52eaabd9d1/media/images/60792halftone-texture-low-opacity.png") ;
+    z-index: 10;
+}
+
+#top a:hover {
+    color: white;
+}
+
+.nav-link {
+    font-family: "Anton";
+    letter-spacing: 2px;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    text-transform: uppercase;
+    text-align: center;
+    color: white;
+}
+
+.navbar-brand {
+    color: white;
+    font-family: "Anton";
+    font-size: 3rem;
+    letter-spacing: 1px;
+
+}
+
+.homeimg {
+    height: 50vh;
+    width: 100%;
+    position: relative;
+    z-index: -1;
+}
+
+
+.findfoodchild {
+    width: 800px;
+    max-width: 100%;
+    min-height: 200px;
+    padding: 16px;
+    border-radius: 4px;
+    background-color: #fff;
+    margin-left: 22rem;
+    margin-top: -175px;
+    filter: drop-shadow(0 0 10px rgba(68, 51, 51, 0.6));
+}
+
+.carousel-item img{
+    height: 100vh;
+}
+
+.carousel-caption {
+    margin-bottom: 10rem;;
+}
+
+.abouth1{
+    font-size: 5rem;
+    font-weight: 900;
+    filter: drop-shadow(0 0 10px rgba(68, 51, 51, 0.6));
+    text-transform: uppercase;
+}
+
+.aboutbtn {
+    background-color: #f3cb38;
+    font-family: "permanent marker";
+    margin-top: 2rem;
+    border-radius: 3px;
+}
+
+.aboutbtn:hover {
+    background-color: #e0850d ;
+    color: white;
+}
+
+#cta {
+    background-color: #fff;
+    background-image: url("https://media-cdn.getbento.com/accounts/ee85a68df770d664f090dd52eaabd9d1/media/s69TdiNTxWptck4MyjHo_one-col-bg.png");
+    background-size: 1600px;
+    background-repeat: no-repeat;
+    background-position: center;
+    text-align: center;
+    padding: 7% 20%;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    align-items: center;
+}
+
+.aboutbtn2 {
+    background-color: #fa2937;
+    font-family: "permanent marker";
+    color: white;
+    margin-top: 2rem;
+    border-radius: 3px;
+}
+
+.aboutbtn2:hover {
+    background-color: #f3cb38 ;
+    color: black;
+}
+.cta-heading {
+    color: #fa2937;
+    font-size: 5rem;
+    line-height: 1.5;
+    font-weight: 900;
+}
+.about-p {
+    font-family: "Anton";
+    letter-spacing: 1px;
+    filter: drop-shadow(0 0 10px rgba(68, 51, 51, 0.6));
+
+}
+
+#additem {
+    background-image: url("https://images.pexels.com/photos/941861/pexels-photo-941861.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940");
+    height: 100vh;
+    color: white;
+    text-align: center;
+    margin-bottom: 1rem;
+    image-rendering: optimizeSpeed;
+    padding-top: 20rem;
+}
+
+.socialink {
+    font-size: 2rem;
+    letter-spacing: 2rem;
+    border-radius: 1px;    
+}
+
+.foot {
+    margin-top: 2rem;
+    color: #f3cb38;
+}
+
+
+.footer {
+    background-color: #fa2937 ;
+    padding-top: 5px;
+    background-image: url("https://images.getbento.com/accounts/ee85a68df770d664f090dd52eaabd9d1/media/images/60792halftone-texture-low-opacity.png") ;
+    text-align: end;
+    padding-bottom: 5px;
+}
+
+.footerlink {
+    font-family: "Anton";
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: white;
+    margin-right: 1rem;
+}
+.footerlink:hover {
+    text-decoration: none;
+    color: #f3cb38;
+}
