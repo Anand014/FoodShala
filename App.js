@@ -343,11 +343,11 @@ app.get("/restaurantitems",middlewareRestaurant.isLoggedIn, (req, res) => {
         });
     });
 });
-app.get("/yourfood/:foodID",(req, res)=>{
+app.get("/restaurantitems/:foodID",(req, res)=>{
     const FoodId = req.params.foodID;
     Food.deleteOne({_id: FoodId }, function (err) {
         if (err) return handleError(err);
-        else res.redirect("/yourfood")
+        else res.redirect("/restaurantitems")
       });
 })
 
