@@ -14,11 +14,11 @@
                 <div class="header">
                     <img alt="Food image cap" class="card-img-top img-fluid" src= "<%= food.image %>" />
                 </div>
-                <div class="body">
+                <div class="body m-1">
             <% if(food.category == 'veg') { %>
-                        <h3>Name- <%= food.name %><i style="color: green;" class="far fa-dot-circle"></i> </h3>
+                        <h3><%= food.name %><i style="color: green;" class="far fa-dot-circle"></i> </h3>
                   <%  } else { %>
-                        <h3>Name- <%= food.name %><i style="color: red;" class="far fa-dot-circle"></i></h3>
+                        <h3><%= food.name %><i style="color: red;" class="far fa-dot-circle"></i></h3>
                <%     }  %> 
                     <p style="margin-top: -0.5rem;">Ingredients -<%= food.description %></p>
                     <p style="margin-top: -1rem;"> <strong>Price - ₹<%= food.price %></strong></p>
