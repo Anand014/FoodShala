@@ -4,9 +4,9 @@
     <div >
         <img class="homeimg" src="/assets/homeimg.jpg" alt="" srcset="">
     </div>
-    <div class="findfood" >
+    <div class="container" >
         <div class="findfoodchild text-center">
-            <h1 class="smallnone">Get a Delivery in G</h1>
+            <h1 class="smallnone">Get a Delivery in 30 Minutes or FREE</h1>
             <p class="smallnone">Your favourite local restaurants delivered</p>
     <%   if (!currentUser) {   %>
         <a href="/cuisine" class="aboutbtn btn btn-lg">Book a Meal</a>
@@ -17,56 +17,65 @@
       <%  }  %>
         </div>
     </div>
-    <div class="container my-5">
+    <div class="container my-5 text-center" style="font-family: 'Anton';">
         <h1>Popular cuisines</h1>
         <p>Browse popular take out cuisines from restaurants in your area and order delivery online.</p>
-        <div class="row">
-            <div class="col">
-                <div class="card text-center">
+        <div class="row d-flex justify-content-center">
+            <div class="row">
+
+            <div class="col-xl-3 col-lg-4 col-md-6">
+                <div class="card text-center m-2" id="homecard"  style="width: 16.5rem; background-color: rgb(248, 87, 87);">
                     <div class="header">
-                        <img alt="Food image cap" class="card-img-top img-fluid" 
+                        <img alt="Food image cap"  class="card-img" 
                         src= "https://images.pexels.com/photos/842519/pexels-photo-842519.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500" />
                     </div>
-                    <div class="body">
+                    <div class="body mt-1" style="height: 30px;">
                         <h4>Pizza</h4>
                     </div>
                 </div>
             </div>
-            <div class="col">
-                <div class="card text-center">
+        </div>
+            <div class="row">
+            <div class="col-xl-3 col-lg-4 col-md-6 ">
+                <div class="card text-center m-2" id="homecard" style="width: 16.5rem; background-color: rgb(248, 87, 87);">
                     <div class="header">
                         <img src="https://images.pexels.com/photos/162993/food-thai-spicy-asian-162993.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"
-                        alt="Food image cap" class="card-img-top img-fluid" />
+                        alt="Food image cap"  class="card-img"  />
                     </div>
-                    <div class="body">
+                    <div class="body mt-1" style="height: 30px;">
                         <h4>Thai</h4>
                     </div>
                 </div>
             </div>
-            <div class="col">
-                <div class="card text-center">
+        </div>
+        <div class="row">
+            <div class="col-xl-3 col-lg-4 col-md-6 ">
+                <div class="card text-center m-2" id="homecard"  style="width: 16.5rem; background-color: rgb(248, 87, 87);">
                     <div class="header">
                         <img src="https://images.pexels.com/photos/2474661/pexels-photo-2474661.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500" 
-                        alt="Food image cap" class="card-img-top img-fluid" />
+                        alt="Food image cap"  class="card-img"  />
                     </div>
-                    <div class="body">
+                    <div class="body mt-1" style="height: 30px;">
                         <h4>Indian</h4>
                     </div>
                 </div>
             </div>
-            <div class="col">
-                <div class="card text-center">
+        </div>
+        <div class="row">
+            <div class="col-xl-3 col-lg-4 col-md-6">
+                <div class="card text-center m-2" id="homecard" style="width: 16.5rem; background-color: rgb(248, 87, 87);">
                     <div class="header">
                         <img src="https://images.pexels.com/photos/1487511/pexels-photo-1487511.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500" 
-                        alt="Food image cap" class="card-img-top img-fluid" />
+                        alt="Food image cap"  class="card-img" />
                     </div>
-                    <div class="body">
+                    <div class="body mt-1" style="height: 30px;">
                         <h4>Italian</h4>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+</div>
     <div class="container" style="margin-top: 5rem;">
         <div class="row ">
             <div class="col-lg-6 col-sm-12 text-center">
@@ -84,11 +93,11 @@
 </section>
 
 <section>
-    <div style=" background-color: aliceblue; border-radius: 0.2rem; filter: drop-shadow(0 0 5px rgba(190, 162, 162, 0.4));" class="container mt-5 text-center">
+    <div style=" background-color: rgb(248, 87, 87); border-radius: 0.2rem; filter: drop-shadow(0 0 5px rgba(190, 162, 162, 0.4));" class="container mt-5 text-center">
         <div class="row">
             <div class="col-6">
                 <h1>Restaurant?</h1>
-                <h3>Become Partner With <span style="color: #fa2937;">FoodShala</span></h3>
+                <h3>Become Partner With <span style="color: #fff;">FoodShala</span></h3>
             </div>
             <div class="col-6">
                 <a class="btn btn-lg aboutbtn" href="partnerlogin">Login</a>
