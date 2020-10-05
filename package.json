@@ -4,7 +4,7 @@
   "description": "Food Order Website",
   "main": "App.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node App.js"
   },
   "author": "Anand",
   "license": "ISC",
