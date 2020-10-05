@@ -1,0 +1,56 @@
+<%- include("./partials/header") %>
+
+
+<div class="container">
+    <h1 class="text-center m-1">Your Cart</h1>
+<%  orders.forEach(order => { %>
+    <div class="row m-5 bg-light">
+        <div class="col">
+            <img class="card-img-top img-fluid" src="<%=order.foodID[0].image%>" alt="CartfoodImage"/>
+            <img >
+        </div>
+        <div class="col">
+            <div class="row">
+                <div class="col">
+                    <h3><%= order.foodID[0].name %></h3>
+                </div>
+                <div class="col" style="margin-top: 0%;">
+                    <a href="/myCart/<%=order.id%>/remove" class="btn btn-md aboutbtn2" style="margin-top: 0.5rem;">Remove</a>
+                    <a href="/myCart/<%=order.id%>" class="btn btn-md aboutbtn" style="background-color: green;margin-top: 0.5rem;">Order Now</a>
+                </div>
+            </div>
+            <p>Ingredients -<%= order.foodID[0].description%></p>
+            <p><strong>Price - ₹<%= order.foodID[0].price %></strong></p>
+            <div class="table-responsive">
+                <table class="table table-striped">
+                  <thead>
+                    <tr>
+                      <th scope="col">Restaurant Name </th>
+                      <th scope="col">Restaurant Phone Number</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td scope="row"><%=order.restaurantID[0].name %></td>
+                      <td><%=order.restaurantID[0].phone %></td>
+                    </tr>
+                    <tr>
+                      <th scope="row">Restaurant Address</th>
+                      <th>Restaurant Email</th>
+                    </tr>
+                    <tr>
+                      <td scope="row"><%=order.restaurantID[0].address %></td>
+                      <td><%=order.restaurantID[0].username %></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+        </div>
+    </div>
+<%  }); %>
+</div>
+
+
+
+
+<%- include("./partials/footer") %>

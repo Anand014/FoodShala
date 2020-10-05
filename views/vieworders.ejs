@@ -1,0 +1,54 @@
+<%- include("./partials/header") %>
+
+
+<div class="container">
+    <h1 class="text-center m-1">New Orders</h1>
+<%  orders.forEach(order => { %>
+    <div class="row m-5 bg-light">
+        <div class="col">
+            <img class="card-img-top img-fluid" src="<%=order.foodID[0].image%>" alt="CartfoodImage"/>
+            <img >
+        </div>
+        <div class="col">
+            <div class="row">
+                <div class="col">
+                    <h3><%= order.foodID[0].name %></h3>
+                </div>
+                <div class="col" style="margin-top: 0%;">
+                    <a href="/vieworders/<%=order.id%>/decline" class="btn btn-md aboutbtn2" style="margin-top: 0.5rem;">Decline</a>
+                    <a href="/vieworders/<%=order.id%>" class="btn btn-md aboutbtn" style="background-color: green;margin-top: 0.5rem;">Approve</a>
+                </div>
+            </div>
+            <p>Order At- <%=order.orderAt.getHours()%>:<%=order.orderAt.getMinutes()%></p>
+            <div class="table-responsive">
+                <table class="table table-striped">
+                  <thead>
+                    <tr>
+                      <th scope="col">User Name </th>
+                      <th scope="col">User Phone Number</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td scope="row"><%=order.userID[0].name %></td>
+                      <td><%=order.userID[0].phone %></td>
+                    </tr>
+                    <tr>
+                      <th scope="row">User Address</th>
+                      <th>User Email</th>
+                    </tr>
+                    <tr>
+                      <td scope="row"><%=order.userID[0].address %></td>
+                      <td><%=order.userID[0].username %></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+        </div>
+    </div>
+<%  }); %>
+</div>
+
+
+
+<%- include("./partials/footer") %>

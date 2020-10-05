@@ -1,0 +1,38 @@
+<%- include("./partials/header") %>
+
+<div class="container-fluid">
+    <div class="row loginsm">
+      <div class="col-sm-12 col-md-6 col-xs-12 login-section-wrapper">
+        <div class="login-wrapper my-auto">
+          <h1 class="login-title">Add New Item</h1>
+          <form action="/additems" method="POST">
+            <div class="form-group">
+                <label for="name">Item Name</label>
+                <input type="text" name="name" id="text" class="form-control" placeholder="Biryani" required>
+              <label for="text">Image</label>
+              <input type="text" name="image" id="Image" class="form-control" required>
+              <label for="number">Price</label>
+                <input type="number" name="price" id="number" class="form-control" placeholder="150" required>
+            </div>
+            <label for="text">Description</label>
+                <input type="text" name="description" id="text" class="form-control" placeholder="Ingredients" required>
+            <div class="form-group m-4">
+                <label for="flavours">Category:</label>
+                <select id="flavours" name="category">
+                  <option value="veg">Vegetarian</option>
+                  <option value="nonveg">non-Vegetarian</option>
+                </select>
+            </div>
+            <button type="submit" class="btn btn-block btn-lg aboutbtn my-2">Add to Your Menu</button>
+          </form>
+        </div>
+      </div>
+      <div class="col-sm-6 px-0 d-none d-md-block">
+        <img src="https://images.pexels.com/photos/1109197/pexels-photo-1109197.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
+        alt=" Itemimage" class="signup-img">
+      </div>
+      </div>
+    </div>
+
+
+<%- include("./partials/footer") %>

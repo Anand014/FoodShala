@@ -1,0 +1,120 @@
+<%- include("./partials/header") %>
+
+
+<div class="container">
+    <h1 class="text-center m-1">Previous Orders</h1>
+<%  orders.forEach(order => { %>
+    <div class="row m-5 bg-light">
+        <div class="col">
+            <img class="card-img-top img-fluid" src="<%=order.foodID[0].image%>" alt="CartfoodImage"/>
+            <img >
+        </div>
+        <div class="col">
+            <div class="row">
+                <div class="col">
+                    <h3><%= order.foodID[0].name %></h3>
+                </div>
+                <div class="col">
+                    <% if(order.status == "PENDING") { %>
+                        <p style="font-size: 1.2rem; margin-left: 3rem;">STATUS <span style="color: #e0850d;"><%=order.status %></span></p>
+                <%    } else if(order.status == "APPROVED") {   %>
+                    <p style="font-size: 1.2rem; margin-left: 3rem;">STATUS <span style="color: green;"><%=order.status %></span></p>
+                <%  } else {  %>
+                <p style="font-size: 1.2rem; margin-left: 3rem;">STATUS <span style="color: #fa2937;"><%=order.status %></span></p>
+            <%   }  %>
+                    </div>
+            </div>
+            <p>Order Time- <%=order.orderAt.getHours()%>:<%=order.orderAt.getMinutes()%></p>
+            <p style="margin-top: -1.5rem;">Date:- <%=order.orderAt.getDate()%>/<%=order.orderAt.getMonth()%>/<%=order.orderAt.getFullYear()%></p>
+            <div class="table-responsive">
+                <table class="table table-striped">
+                  <thead>
+                    <tr>
+                      <th scope="col">User Name </th>
+                      <th scope="col">User Phone Number</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td scope="row"><%=order.userID[0].name %></td>
+                      <td><%=order.userID[0].phone %></td>
+                    </tr>
+                    <tr>
+                      <th scope="row">User Address</th>
+                      <th>User Email</th>
+                    </tr>
+                    <tr>
+                      <td scope="row"><%=order.userID[0].address %></td>
+                      <td><%=order.userID[0].username %></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+        </div>
+    </div>
+<%  }); %>
+</div>
+<div class="container mt-5">
+    <nav aria-label="Page navigation">
+        <% if (pages && pages > 0) { %>
+        <ul class="pagination justify-content-center">
+          <% if (current == 1) { %>
+          <li class="page-item active"><a class="page-link">First</a></li>
+          <% } else { %>
+          <li><a class="page-link" href="/cuisine">First</a></li>
+          <% } %> <% if (current == 1) { %>
+          <li class="page-item disabled"><a class="page-link">«</a></li>
+          <% } else { %>
+          <li>
+            <a
+              class="page-link"
+              href="/previousorders?page=<%= Number(current) - 1 %>"
+              >«</a
+            >
+          </li>
+          <% } %> <% let i = (Number(current) > 5 ? Number(current) - 4 : 1) %> <%
+          if (i !== 1) { %>
+          <li class="page-item disabled"><a class="page-link">...</a></li>
+          <% } %> <% for (; i <= (Number(current) + 4) && i <= pages; i++) { %> <%
+          if (i == current) { %>
+          <li class="page-item active"><a class="page-link"><%= i %></a></li>
+          <% } else { %>
+          <li>
+            <a
+              class="page-link"
+              href="/previousorders?page=<%= i %>"
+              ><%= i %></a
+            >
+          </li>
+          <% } %> <% if (i == Number(current) + 4 && i < pages) { %>
+          <li class="page-item disabled"><a class="page-link">...</a></li>
+          <% } %> <% } %> <% if (current == pages) { %>
+          <li class="page-item disabled"><a class="page-link">»</a></li>
+          <% } else { %>
+          <li>
+            <a
+              class="page-link"
+              href="/previousorders?page=<%= Number(current) + 1 %>"
+              >»</a
+            >
+          </li>
+          <% } %> <% if (current == pages) { %>
+          <li class="page-item active"><a class="page-link">Last</a></li>
+          <% } else { %>
+          <li>
+            <a
+              class="page-link"
+              href="/previousorders?page=<%= pages %>"
+              >Last</a
+            >
+          </li>
+          <% } %>
+        </ul>
+        <% } %>
+      </nav>
+</div>
+
+
+
+
+<%- include("./partials/footer") %>

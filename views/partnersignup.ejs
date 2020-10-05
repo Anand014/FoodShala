@@ -1,0 +1,38 @@
+<%- include("./partials/header") %>
+
+
+<div class="container-fluid">
+    <div class="row loginsm">
+      <div class="col-sm-12 col-md-6 col-xs-12 login-section-wrapper">
+        <div class="login-wrapper my-auto">
+          <h3 class="">SignUp as a Restaurant</h3>
+          <form action="/partnersignup" method="POST">
+            <div class="form-group">
+                <label for="text">Restaurant Name</label>
+                <input type="text" name="name" id="text" class="form-control" placeholder="The Dining Room" required>
+              <label for="email">Email</label>
+              <input type="email" name="username" id="email" class="form-control" placeholder="email@example.com" required>
+              <label for="text">Address</label>
+                <input type="text" name="address" id="text" class="form-control" placeholder="51 Area, Colony 6" required>
+            </div>
+            <label for="tel">Phone Number</label>
+                <input type="tel" name="phone" id="text" class="form-control" placeholder="9898989899" required>
+            <div class="form-group mb-4">
+              <label for="password">Password</label>
+              <input type="password" name="password" id="password" class="form-control" placeholder="enter your passsword" required>
+            </div>
+            <button type="submit" class="btn btn-block btn-lg aboutbtn my-2">Signup</button>
+          </form>
+        </div>
+      </div>
+      <div class="col-sm-6 px-0 d-none d-md-block">
+        <img src="https://images.pexels.com/photos/3184287/pexels-photo-3184287.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"
+         alt="Signup image" class="signup-img">
+      </div>
+      </div>
+    </div>
+    </div>
+  </div>
+
+
+<%- include("./partials/footer") %>
