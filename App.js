@@ -139,12 +139,6 @@ app.post("/signup" , (req, res) =>{
         }
     });
 });
-
-
-app.get("/partnerlogin", middleware.isLoggedOut , (req, res) =>{
-    res.render("partnerlogin")
-});
-
 // -----------restrologin--------------
 
 
