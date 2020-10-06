@@ -1,7 +1,6 @@
 // ----userSchema-------
 const mongoose = require("mongoose");
 const passportLocalMongoose = require("passport-local-mongoose");
-const restaurant = require("./restaurant");
 
 
 
@@ -11,6 +10,7 @@ const userSchema = new mongoose.Schema({
     address: String,
     phone: String,
     preference: String,
+    partner: { type: Boolean, default: false },
     password: String
 });
 

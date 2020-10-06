@@ -6,7 +6,6 @@ const session = require("express-session");
 var passport = require('passport')
   , LocalStrategy = require('passport-local').Strategy;
 const User = require("./models/user");
-const Restaurant = require("./models/restaurant");
 const {middleware , middlewareRestaurant} = require("./middleware");
 const { use } = require("passport");
 
@@ -36,92 +35,22 @@ app.use(passport.session());
 
   
 app.use(function (req, res, next) {
-    // console.log(req.session)
+    // console.log(req.user)
      res.locals.currentUser = req.user;
      next();
 });
 
-// .........................
-passport.use('user-local', new LocalStrategy({
-    usernameField: 'username',
-    passwordField: 'password' // this is the virtual field on the model
-  },
-  function(username, password, done) {
-    User.findOne({
-      username: username
-    }, function(err, user) {
-      if (err) return done(err);
+passport.use(User.createStrategy());
 
-      if (!user) {
-        return done(null, false, {
-          message: 'This email is not registered.'
-        });
-      }
-      if (user.authenticate(password)) {
-        return done(null, user);
-      }
-      res.redirect("/")
-    });
-  }
-));
+passport.serializeUser(function (user, done) {
+  done(null, user.id);
+});
 
-  // add other strategies for more authentication flexibility
-  passport.use('restaurant-local', new LocalStrategy({
-          usernameField: 'username',
-          passwordField: 'password' // this is the virtual field on the model
-      },
-      function(username, password, done) {
-          Restaurant.findOne({
-              username: username
-          }, function(err, restaurant) {
-              if (err) return done(err);
-
-              if (!restaurant) {
-                  return done(null, false, {
-                      message: 'This email/username is not registered.'
-                  });
-              }
-              if (!restaurant.authenticate(password)) {
-                  return done(null, false, {
-                      message: 'This password is not correct.'
-                  });
-              }
-              return done(null, restaurant);
-          });
-      }
-  ));
-// ---------------------------
-
-passport.serializeUser((obj, done) => {
-    // console.log("serialrun", obj.id)
-    if (obj.partner == true) {
-      done(null, obj);
-    //   console.log("done serialize obj",obj)
-    } else {
-        console.log("runfalse")
-      done(null, obj);
-    }
+passport.deserializeUser(function (id, done) {
+  User.findById(id, function (err, user) {
+    done(err, user);
   });
-  
-  passport.deserializeUser((obj, done) => {
-    if (obj.partner == true) {
-        // console.log("using des: true", obj)
-        Restaurant.findById(obj, function(err, restaurant) {
-            if (err)
-            return done(err);
-            if (restaurant)
-            return done(null, restaurant);
-        });
-    } else {
-        // console.log("using des: false", obj)
-        User.findById(obj, function(err, user) {
-            if (err)
-            return done(err);
-            if (user)
-            return done(null, user);
-        });
-    }
-  });
+});
 
 //   -------FoodDB------------
 
@@ -141,7 +70,7 @@ const Food =  mongoose.model("Food", foodSchema);
 const orderSchema = new mongoose.Schema({
     foodID: [{ type: mongoose.Schema.Types.ObjectId, ref: "Food" }],
     userID: [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }],
-    restaurantID: [{ type: mongoose.Schema.Types.ObjectId, ref: "Restaurant" }],
+    restaurantID: [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }],
     rating: Number,
     quantity:Number,
     status : String,
@@ -172,9 +101,9 @@ app.post("/login", (req, res) => {
     req.login(user, (err) => {
         if(err){
             console.log(err);
-            res.redirect("/signup");
+            res.redirect("/");
         } else {
-            passport.authenticate("user-local") (req, res, () => {
+            passport.authenticate("local") (req, res, () => {
                 console.log("successfully logged in")
                 res.redirect("/");
             });
@@ -205,7 +134,7 @@ app.post("/signup" , (req, res) =>{
         } else {
             passport.authenticate("user-local")(req, res, () =>{
                 console.log("user is in database")
-                res.redirect("/")
+                res.redirect("/");
             });
         }
     });
@@ -218,41 +147,23 @@ app.get("/partnerlogin", middleware.isLoggedOut , (req, res) =>{
 
 // -----------restrologin--------------
 
-app.post("/partnerlogin", (req, res) => {
-    const restaurant = new Restaurant({
-        username : req.body.username,
-        password : req.body.password
-    });
-    req.login(restaurant, (err) => {
-        if(err){
-            console.log(err);
-            res.redirect("/partnersignup");
-        } else {
-            passport.authenticate('restaurant-local') (req, res, () => {
-                console.log("successfully logged in")
-                res.redirect("/");
-            });
-        }
-    });
-});
-
 
 app.get("/partnersignup",middleware.isLoggedOut, (req, res) => {
     res.render("partnersignup")
 });
 
 app.post("/partnersignup" , (req, res) =>{
-   Restaurant.register({
+   User.register({
         name: req.body.name,
         username: req.body.username,
         address: req.body.address,
-        phone: req.body.phone
+        phone: req.body.phone,
+        partner : true
     }, req.body.password, (err, restaurant) => {
         if(err) {
             console.log(err)
-            res.redirect("/partnersignup");
         } else {
-            passport.authenticate('restaurant-local')(req, res, () =>{
+            passport.authenticate("local")(req, res, () =>{
                 console.log("Restaurant is in database")
                 res.redirect("/")
             });
@@ -270,7 +181,7 @@ app.post("/additems", (req ,res) => {
     const price = req.body.price;
     const description = req.body.description;
     const category = req.body.category;
-    const restaurant_id = req.user.id;
+    restaurant_id = req.user.id;
 
     const newFood = {
         name: name,
@@ -278,7 +189,7 @@ app.post("/additems", (req ,res) => {
         price: price,
         description: description,
         category: category,
-        restaurant_id : restaurant_id
+        restaurant_id: restaurant_id
     };
 
     Food.create(newFood, (err, newlycreated) => {
@@ -286,7 +197,7 @@ app.post("/additems", (req ,res) => {
             console.log(err);
         } else {
             console.log("Food Created");
-            res.redirect("/");
+            res.redirect("/restaurantitems");
         }
     });
 });
@@ -366,14 +277,15 @@ app.get("/cuisine/:foodID/:restaurantID", (req, res) => {
             console.log(err)
         } else{
             console.log("Order Created Successfully")
-            res.redirect("/")
+            res.redirect("/mycart")
         }
     });
 });
 
-app.get("/myCart",middleware.isLoggedIn, (req, res) =>{
+app.get("/mycart",middleware.isLoggedIn, (req, res) =>{
     const userID = req.user.id;
-    Order.find({userID: userID , status: "INCART"}).populate('foodID').populate('restaurantID').exec((err, order) => {
+    Order.find({userID: userID , status: "INCART"}).populate('foodID').populate('restaurantID')
+    .exec((err, order) => {
         if(err){
             console.log(err)
         } else {
@@ -382,31 +294,31 @@ app.get("/myCart",middleware.isLoggedIn, (req, res) =>{
     });
 });
 
-app.get("/myCart/:orderID", (req, res) => {
+
+app.get("/mycart/:orderID", (req, res) => {
     const orderID = req.params.orderID;
     Order.updateOne({_id:orderID},{status: "PENDING"}, (err)=>{
         if(err){
             console.log(err)
         } else {
             console.log("Order Placed")
-            res.redirect("/");
+            res.redirect("/myorders");
         }
     });
 });
 
-app.get("/myCart/:orderID/remove", (req, res) => {
+app.get("/mycart/:orderID/remove", (req, res) => {
     const orderID = req.params.orderID;
     Order.updateOne({_id:orderID},{status: null}, (err)=>{
         if(err){
             console.log(err)
         } else {
-            console.log("Order Placed")
-            res.redirect("/");
+            res.redirect("/mycart");
         }
     });
 })
 
-app.get("/myOrders" ,middleware.isLoggedIn, (req, res) => {
+app.get("/myorders" ,middleware.isLoggedIn, (req, res) => {
     let perPage = 9;
     let pageQuery = parseInt(req.query.page);
     let pageNumber = pageQuery ? pageQuery : 1;
@@ -415,14 +327,13 @@ app.get("/myOrders" ,middleware.isLoggedIn, (req, res) => {
     Order.find({ $and:[{userID: req.user.id, status : {$ne:"INCART"}},
     {userID: req.user.id, status : {$ne:null}},
     {userID: req.user.id, status : {$exists: true }}]})
-    .sort({orderAt: -1}).populate('foodID')
-    .populate('restaurantID')
+    .sort({orderAt: -1}).populate('foodID').populate('restaurantID')
     .exec((err, order) => {
         Order.countDocuments().exec((err, count) =>{
         if(err){
             console.log(err)
         } else {
-            res.render("myOrders", {
+            res.render("myorders", {
                 orders:order,
                 current: pageNumber,
                 num: count,
@@ -435,7 +346,7 @@ app.get("/myOrders" ,middleware.isLoggedIn, (req, res) => {
 });
 
 app.get("/vieworders",middlewareRestaurant.isLoggedIn, (req, res) =>{
-    const restaurantID = req.user.id
+    const restaurantID = req.user.id;
     Order.find({restaurantID: restaurantID , status: "PENDING"}).populate('foodID').populate('userID').exec((err, order) => {
         if(err){
             console.log(err)
@@ -481,7 +392,7 @@ app.get("/vieworders/:orderID", (req, res) => {
             console.log(err)
         } else {
             console.log("Food will be Delivered soon")
-            res.redirect("/");
+            res.redirect("/previousorders");
         }
     });
 });
@@ -493,7 +404,7 @@ app.get("/vieworders/:orderID/decline", (req, res) => {
             console.log(err)
         } else {
             console.log("Food will be Delivered soon")
-            res.redirect("/");
+            res.redirect("/vieworders");
         }
     });
 });
@@ -507,24 +418,13 @@ app.post("/profileupdate", (req, res) => {
     const address = req.body.address;
     const phone = req.body.phone;
     const preference = req.body.category;
-
-    if(req.user.partner == true) {
-        Restaurant.updateOne({_id: req.user._id},{name: name, address: address, phone: phone,preference: preference}, function(err){
+        User.updateOne({_id: req.user._id},{name: name, address: address, phone: phone,preference: preference}, function(err){
             if(err){
               console.log(err);
             } else {
               res.redirect("/");
             }
           });
-    } else {
-        User.updateOne({_id: req.user._id},{name: name,address: address,phone: phone,preference: preference}, function(err){
-            if(err){
-              console.log(err);
-            } else {
-              res.redirect("/");
-            }
-          });
-    }
 });
 
 

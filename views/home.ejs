@@ -6,18 +6,29 @@
     </div>
     <div class="container" >
         <div class="findfoodchild text-center">
+    <%   if (!currentUser) {   %>
             <h1 class="smallnone">Get a Delivery in 30 Minutes or FREE</h1>
             <p class="smallnone">Your favourite local restaurants delivered</p>
-    <%   if (!currentUser) {   %>
-        <a href="/cuisine" class="aboutbtn btn btn-lg">Book a Meal</a>
+        <a href="/cuisine" class="aboutbtn btn btn-md">Book a Meal</a>
       <%  } else if(currentUser.partner == true) { %>
-        <a href="/cuisine" class="aboutbtn btn btn-lg">All Cuisine</a>
+        <h2>Partner <i class="fas fa-utensils"></i> <%= currentUser.name %></h2>
+        <a href="/cuisine" class="aboutbtn btn btn-md">All Cuisine</a>
+        <a href="/vieworders" class="aboutbtn btn btn-md">New Orders</a>
+        <a href="/Previousorders" class="aboutbtn btn btn-md">Previous Orders</a>
+        <a href="/additems" class="aboutbtn btn btn-md">Add Items</a>
+        <a href="/restaurantitems" class="aboutbtn btn btn-md">My Items</a>
+        <a href="/profileupdate" class="aboutbtn btn btn-md">Edit Profile</a>
        <% } else { %>
-        <a href="/cuisine" class="aboutbtn btn btn-lg">Book a Meal</a>
+        <i class="fa fa-user" aria-hidden="true"></i>
+        <h2><%= currentUser.name %></h2>
+        <a href="/cuisine" class="aboutbtn btn btn-md">Book a Meal</a>
+        <a href="/mycart" class="aboutbtn btn btn-md">My Cart</a>
+        <a href="/myorders" class="aboutbtn btn btn-md">My Orders</a>
+        <a href="/profileupdate" class="aboutbtn btn btn-md">Edit Profile</a>
       <%  }  %>
         </div>
     </div>
-    <div class="container my-5 text-center" style="font-family: 'Anton';">
+    <div class="container my-5 text-center">
         <h1>Popular cuisines</h1>
         <p>Browse popular take out cuisines from restaurants in your area and order delivery online.</p>
         <div class="row d-flex justify-content-center">
@@ -83,7 +94,7 @@
                 style="width: 18rem; filter: drop-shadow(0 0 2px rgba(68, 51, 51, 0.6)); border-radius: 1rem;">
             </div>
             <div class="col text-center">
-                <h1 style="margin-top: 5rem;">Find your flavour even faster</h1>
+                <h2 style="margin-top: 5rem;">Find your flavour even faster</h2>
                 <p>For speedy ordering, get the free FoodShala app on iOS or Android.</p>
                 <button type="button" class="btn btn-lg aboutbtn"><i class="fab fa-apple"></i> Download</button>
                 <button type="button" class="btn btn-lg aboutbtn2"><i class="fab fa-android"></i> Download</button>
@@ -96,12 +107,11 @@
     <div style=" background-color: rgb(248, 87, 87); border-radius: 0.2rem; filter: drop-shadow(0 0 5px rgba(190, 162, 162, 0.4));" class="container mt-5 text-center">
         <div class="row">
             <div class="col-6">
-                <h1>Restaurant?</h1>
+                <h2>Restaurant?</h2>
                 <h3>Become Partner With <span style="color: #fff;">FoodShala</span></h3>
             </div>
-            <div class="col-6">
-                <a class="btn btn-lg aboutbtn" href="partnerlogin">Login</a>
-                <a class="btn btn-lg aboutbtn bg-success" href="partnersignup">Register</a>
+            <div class="col-6" style="margin-top: -1rem ;">
+                <a class="btn btn-lg aboutbtn" href="partnersignup">Register</a>
             </div>
             
         </div>

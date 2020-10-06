@@ -4,24 +4,23 @@
 
 <div class="container">
     <h1 class="text-center m-1">My Order</h1>
-<%  orders.forEach(order => { %>
-    <div class="row m-5 bg-light">
-        <div class="col">
-            <img class="card-img-top img-fluid" src="<%=order.foodID[0].image%>" alt="CartfoodImage"/>
-            <img >
-        </div>
-        <div class="col">
-            <div class="row">
-                <div class="col">
-                    <h3><%= order.foodID[0].name %></h3>
+    <%  orders.forEach(order => { %>
+          <div class="row m-5 bg-light">
+            <div class="col-lg-6 col-md-12">
+              <img class="card-img-top img-fluid" src="<%=order.foodID[0].image%>" alt="CartfoodImage"/>
+            </div>
+            <div class="col-lg-6 col-md-12">
+              <div class="row">
+                <div class="col">            
+                  <h3><%= order.foodID[0].name %></h3>
                 </div>
                 <div class="col">
                 <% if(order.status == "PENDING") { %>
-                    <p style="font-size: 1.2rem; margin-left: 3rem;">STATUS <span style="color: #e0850d;"><%=order.status %></span></p>
+                    <p style="font-size: 1.2rem; margin-left: 3rem;"><span style="color: #e0850d;"><%=order.status %></span></p>
             <%    } else if(order.status == "APPROVED") {   %>
-                <p style="font-size: 1.2rem; margin-left: 3rem;">STATUS <span style="color: green;"><%=order.status %></span></p>
+                <p style="font-size: 1.2rem; margin-left: 3rem;"><span style="color: green;"><%=order.status %></span></p>
             <%  } else {  %>
-            <p style="font-size: 1.2rem; margin-left: 3rem;">STATUS <span style="color: #fa2937;"><%=order.status %></span></p>
+            <p style="font-size: 1.2rem; margin-left: 3rem;"><span style="color: #fa2937;"><%=order.status %></span></p>
         <%   }  %>
                 </div>
             </div>
