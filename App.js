@@ -132,7 +132,7 @@ app.post("/signup" , (req, res) =>{
             console.log(err)
             res.redirect("/signup");
         } else {
-            passport.authenticate("user-local")(req, res, () =>{
+            passport.authenticate("local")(req, res, () =>{
                 console.log("user is in database")
                 res.redirect("/");
             });
@@ -278,7 +278,7 @@ app.get("/cuisine/:foodID/:restaurantID", (req, res) => {
 
 app.get("/mycart",middleware.isLoggedIn, (req, res) =>{
     const userID = req.user.id;
-    Order.find({userID: userID , status: "INCART"}).populate('foodID').populate('restaurantID')
+    Order.find({userID: userID, status: "INCART"}).populate('foodID').populate('restaurantID')
     .exec((err, order) => {
         if(err){
             console.log(err)
@@ -317,10 +317,10 @@ app.get("/myorders" ,middleware.isLoggedIn, (req, res) => {
     let pageQuery = parseInt(req.query.page);
     let pageNumber = pageQuery ? pageQuery : 1;
     let checkQuery = false;
+    const userID = req.user.id;
 
-    Order.find({ $and:[{userID: req.user.id, status : {$ne:"INCART"}},
-    {userID: req.user.id, status : {$ne:null}},
-    {userID: req.user.id, status : {$exists: true }}]})
+    Order.find({ $and:[{userID: userID, status : {$ne:"INCART"}},
+    {userID: userID, status : {$ne:null}}]})
     .sort({orderAt: -1}).populate('foodID').populate('restaurantID')
     .exec((err, order) => {
         Order.countDocuments().exec((err, count) =>{
@@ -355,10 +355,10 @@ app.get("/previousorders",middlewareRestaurant.isLoggedIn, (req, res) =>{
     let pageQuery = parseInt(req.query.page);
     let pageNumber = pageQuery ? pageQuery : 1;
     let checkQuery = false;
-    
     const restaurantID = req.user.id
     Order.find({ $and:[{restaurantID: restaurantID, status : {$ne:"INCART"}},
     {restaurantID: restaurantID, status : {$ne:null}},
+    {restaurantID: restaurantID, status : {$ne:"PENDING"}},
     {restaurantID: restaurantID, status : {$exists: true }}]})
     .sort({orderAt: -1}).populate('foodID')
     .populate('userID')
