@@ -17,8 +17,8 @@ app.set("view engine", "ejs");
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static("public"));
 
-// mongoose.connect("mongodb://localhost:27017/foodshalaDB",{ useUnifiedTopology: true, useNewUrlParser: true });
-mongoose.connect("mongodb+srv://Anand:12345@yourblogdb.lhdpi.mongodb.net/foodshalaDB",{ useUnifiedTopology: true, useNewUrlParser: true });
+mongoose.connect("mongodb://localhost:27017/foodshalaDB",{ useUnifiedTopology: true, useNewUrlParser: true });
+// mongoose.connect("mongodb+srv://Anand:12345@yourblogdb.lhdpi.mongodb.net/foodshalaDB",{ useUnifiedTopology: true, useNewUrlParser: true });
 
 mongoose.set("useCreateIndex", true);
 
@@ -254,7 +254,9 @@ app.get("/restaurantitems/:foodID",(req, res)=>{
         if (err) return handleError(err);
         else res.redirect("/restaurantitems")
       });
-})
+});
+
+// --------------Order Created-------------
 
 app.get("/cuisine/:foodID/:restaurantID", (req, res) => {
     const userId = req.user.id;
@@ -276,6 +278,8 @@ app.get("/cuisine/:foodID/:restaurantID", (req, res) => {
     });
 });
 
+// --------------------------------
+
 app.get("/mycart",middleware.isLoggedIn, (req, res) =>{
     const userID = req.user.id;
     Order.find({userID: userID, status: "INCART"}).populate('foodID').populate('restaurantID')
@@ -283,7 +287,7 @@ app.get("/mycart",middleware.isLoggedIn, (req, res) =>{
         if(err){
             console.log(err)
         } else {
-            res.render("cart", {orders:order})
+            res.render("cart", {orders:order});
         }
     });
 });
@@ -325,7 +329,7 @@ app.get("/myorders" ,middleware.isLoggedIn, (req, res) => {
     .exec((err, order) => {
         Order.countDocuments().exec((err, count) =>{
         if(err){
-            console.log(err)
+            console.log(err);
         } else {
             res.render("myorders", {
                 orders:order,
@@ -345,7 +349,7 @@ app.get("/vieworders",middlewareRestaurant.isLoggedIn, (req, res) =>{
         if(err){
             console.log(err)
         } else {
-            res.render("vieworders", {orders:order})
+            res.render("vieworders", {orders:order});
         }
     });
 });
@@ -365,7 +369,7 @@ app.get("/previousorders",middlewareRestaurant.isLoggedIn, (req, res) =>{
     .exec((err, order) => {
         Order.countDocuments().exec((err, count) =>{
         if(err){
-            console.log(err)
+            console.log(err);
         } else {
             res.render("previousorders", {
                 orders:order,

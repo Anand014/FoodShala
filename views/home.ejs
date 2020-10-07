@@ -7,11 +7,11 @@
     <div class="container" >
         <div class="findfoodchild text-center">
     <%   if (!currentUser) {   %>
-            <h1 class="smallnone">Get a Delivery in 30 Minutes or FREE</h1>
-            <p class="smallnone">Your favourite local restaurants delivered</p>
-        <a href="/cuisine" class="aboutbtn btn btn-md">Book a Meal</a>
+            <h1>Get a Delivery in 30 Minutes or FREE</h1>
+            <p>Your favourite local restaurants delivered</p>
+        <a href="/cuisine" class="aboutbtn btn btn-lg">Book a Meal</a>
       <%  } else if(currentUser.partner == true) { %>
-        <h2>Partner <i class="fas fa-utensils"></i> <%= currentUser.name %></h2>
+        <h2 class="smallnone">Partner <i class="fas fa-utensils"></i> <%= currentUser.name %></h2>
         <a href="/cuisine" class="aboutbtn btn btn-md">All Cuisine</a>
         <a href="/vieworders" class="aboutbtn btn btn-md">New Orders</a>
         <a href="/Previousorders" class="aboutbtn btn btn-md">Previous Orders</a>
@@ -20,11 +20,11 @@
         <a href="/profileupdate" class="aboutbtn btn btn-md">Edit Profile</a>
        <% } else { %>
         <i class="fa fa-user" aria-hidden="true"></i>
-        <h2><%= currentUser.name %></h2>
-        <a href="/cuisine" class="aboutbtn btn btn-md">Book a Meal</a>
-        <a href="/mycart" class="aboutbtn btn btn-md">My Cart</a>
-        <a href="/myorders" class="aboutbtn btn btn-md">My Orders</a>
-        <a href="/profileupdate" class="aboutbtn btn btn-md">Edit Profile</a>
+        <h2 class="smallnone"><%= currentUser.name %></h2>
+        <a href="/cuisine" class="aboutbtn btn btn-lg">Book a Meal</a>
+        <a href="/mycart" class="aboutbtn btn btn-lg">My Cart</a>
+        <a href="/myorders" class="aboutbtn btn btn-lg">My Orders</a>
+        <a href="/profileupdate" class="aboutbtn btn btn-lg">Edit Profile</a>
       <%  }  %>
         </div>
     </div>
@@ -35,7 +35,7 @@
             <div class="row">
 
             <div class="col-xl-3 col-lg-4 col-md-6">
-                <div class="card text-center m-2" id="homecard"  style="width: 16.5rem; background-color: rgb(248, 87, 87);">
+                <div class="card text-center m-2" id="homecard"  style="width: 16.5rem; background-color: #e8e8e8;">
                     <div class="header">
                         <img alt="Food image cap"  class="card-img" 
                         src= "https://images.pexels.com/photos/842519/pexels-photo-842519.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500" />
@@ -48,7 +48,7 @@
         </div>
             <div class="row">
             <div class="col-xl-3 col-lg-4 col-md-6 ">
-                <div class="card text-center m-2" id="homecard" style="width: 16.5rem; background-color: rgb(248, 87, 87);">
+                <div class="card text-center m-2" id="homecard" style="width: 16.5rem; background-color:#e8e8e8;">
                     <div class="header">
                         <img src="https://images.pexels.com/photos/162993/food-thai-spicy-asian-162993.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"
                         alt="Food image cap"  class="card-img"  />
@@ -61,7 +61,7 @@
         </div>
         <div class="row">
             <div class="col-xl-3 col-lg-4 col-md-6 ">
-                <div class="card text-center m-2" id="homecard"  style="width: 16.5rem; background-color: rgb(248, 87, 87);">
+                <div class="card text-center m-2" id="homecard"  style="width: 16.5rem; background-color:#e8e8e8;">
                     <div class="header">
                         <img src="https://images.pexels.com/photos/2474661/pexels-photo-2474661.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500" 
                         alt="Food image cap"  class="card-img"  />
@@ -74,7 +74,7 @@
         </div>
         <div class="row">
             <div class="col-xl-3 col-lg-4 col-md-6">
-                <div class="card text-center m-2" id="homecard" style="width: 16.5rem; background-color: rgb(248, 87, 87);">
+                <div class="card text-center m-2" id="homecard" style="width: 16.5rem; background-color: #e8e8e8;">
                     <div class="header">
                         <img src="https://images.pexels.com/photos/1487511/pexels-photo-1487511.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500" 
                         alt="Food image cap"  class="card-img" />
@@ -104,11 +104,11 @@
 </section>
 
 <section>
-    <div style=" background-color: rgb(248, 87, 87); border-radius: 0.2rem; filter: drop-shadow(0 0 5px rgba(190, 162, 162, 0.4));" class="container mt-5 text-center">
+    <div style=" background-color: #e8e8e8; border-radius: 0.2rem; filter: drop-shadow(0 0 5px rgba(190, 162, 162, 0.4));" class="container mt-5 text-center">
         <div class="row">
             <div class="col-6">
                 <h2>Restaurant?</h2>
-                <h3>Become Partner With <span style="color: #fff;">FoodShala</span></h3>
+                <h3>Become Partner With <span style="color: #fa2937">FoodShala</span></h3>
             </div>
             <div class="col-6" style="margin-top: -1rem ;">
                 <a class="btn btn-lg aboutbtn" href="partnersignup">Register</a>
