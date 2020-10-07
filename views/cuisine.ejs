@@ -9,7 +9,7 @@
 
     <div class="container">
       <div class="row" >
-<%    if(!currentUser){   %>
+<%  if(!currentUser){   %>
           <% foods.forEach(food => {  %>
             <div class="col-lg-4 col-md-6 col-sm-12">
                 <div class="card mb-2">
@@ -31,49 +31,73 @@
           </div>
 <%  }); %>
     <%   } else {  %>
-<%      if(currentUser.preference == "veg"){   %>
-          <% foods.forEach(food => {  %>
-  <%      if(food.category == "veg"){  %>
-              <div class="col-lg-4 col-md-6 col-sm-12">
-                <div class="card mb-2">
-                    <div class="header">
-                        <img alt="Food image cap" class="card-img-top img-fluid" src= "<%= food.image %>" />
-                    </div>
-                    <div class="body">
-                            <h3><%= food.name %><i style="color: green;" class="far fa-dot-circle"></i> </h3>
-                        <p>Ingredients -<%= food.description %></p>
-                        <p><strong>Price - ₹<%= food.price %></strong></p>
-                    </div>
-                    <div>
-                    <a href="/cuisine/<%=food.id%>/<%=food.restaurant_id%>" class="btn btn-block btn-lg aboutbtn" style="border-radius: 0px; margin-top: 0%;">add to cart</a>
-                  </div>
+<%  if(currentUser.partner == true){  %>
+  <% foods.forEach(food => {  %>
+    <div class="col-lg-4 col-md-6 col-sm-12">
+        <div class="card mb-5">
+            <div class="header">
+                <img alt="Food image cap" class="card-img-top img-fluid" src= "<%= food.image %>" />
+            </div>
+            <div class="body">
+        <% if(food.category == 'veg') { %>
+                    <h3><%= food.name %><i style="color: green;" class="far fa-dot-circle"></i> </h3>
+              <%  } else { %>
+                    <h3><%= food.name %><i style="color: red;" class="far fa-dot-circle"></i></h3>
+           <%     }  %> 
+                <p>Ingredients -<%= food.description %></p>
+                <p><strong>Price - ₹<%= food.price %></strong></p>
+            </div>
+      </div>
+  </div>
+<%  }); %>
+  <% } else {   %>
+    <%      if(currentUser.preference == "veg"){   %>
+      <% foods.forEach(food => {  %>
+<%      if(food.category == "veg"){  %>
+          <div class="col-lg-4 col-md-6 col-sm-12">
+            <div class="card mb-2">
+                <div class="header">
+                    <img alt="Food image cap" class="card-img-top img-fluid" src= "<%= food.image %>" />
+                </div>
+                <div class="body">
+                        <h3><%= food.name %><i style="color: green;" class="far fa-dot-circle"></i> </h3>
+                    <p>Ingredients -<%= food.description %></p>
+                    <p><strong>Price - ₹<%= food.price %></strong></p>
+                </div>
+                <div>
+                <a href="/cuisine/<%=food.id%>/<%=food.restaurant_id%>" class="btn btn-block btn-lg aboutbtn" style="border-radius: 0px; margin-top: 0%;">add to cart</a>
               </div>
           </div>
-    <%     } else {   %>
-  <%      }   %>
+      </div>
+<%     } else {   %>
+<%      }   %>
 <%  }); %>
-  <%      } else {   %>
-          <% foods.forEach(food => {  %>
-            <div class="col-lg-4 col-md-6 col-sm-12">
-              <div class="card mb-2">
-                  <div class="header">
-                      <img alt="Food image cap" class="card-img-top img-fluid" src= "<%= food.image %>" />
-                  </div>
-                  <div class="body">
-                          <h3><%= food.name %><i style="color: red;" class="far fa-dot-circle"></i></h3>
-                      <p>Ingredients -<%= food.description %></p>
-                      <p><strong>Price - ₹<%= food.price %></strong></p>
-                  </div>
-                  <div>
-                  <a href="/cuisine/<%=food.id%>/<%=food.restaurant_id%>" 
-                    class="btn btn-block btn-lg aboutbtn" 
-                    style="border-radius: 0px; margin-top: 0%;">add to cart</a>
-                </div>
+<%      } else {   %>
+      <% foods.forEach(food => {  %>
+<%      if(food.category == "nonveg"){  %>
+        <div class="col-lg-4 col-md-6 col-sm-12">
+          <div class="card mb-2">
+              <div class="header">
+                  <img alt="Food image cap" class="card-img-top img-fluid" src= "<%= food.image %>" />
+              </div>
+              <div class="body">
+                      <h3><%= food.name %><i style="color: red;" class="far fa-dot-circle"></i></h3>
+                  <p>Ingredients -<%= food.description %></p>
+                  <p><strong>Price - ₹<%= food.price %></strong></p>
+              </div>
+              <div>
+              <a href="/cuisine/<%=food.id%>/<%=food.restaurant_id%>" 
+                class="btn btn-block btn-lg aboutbtn" 
+                style="border-radius: 0px; margin-top: 0%;">add to cart</a>
             </div>
         </div>
-        <%  }); %>
+    </div>
+<%      }   %>
+    <%  }); %>
 <%      }  %>
-  <%  }   %>
+
+    <%  } %>
+<%  }   %>
         
 </div> 
 </div>
