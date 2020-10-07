@@ -269,9 +269,14 @@ app.get("/restaurantitems",middlewareRestaurant.isLoggedIn, (req, res) => {
 app.get("/restaurantitems/:foodID",(req, res)=>{
     const FoodId = req.params.foodID;
     Food.deleteOne({_id: FoodId }, function (err) {
-        if (err) return handleError(err);
-        else res.redirect("/restaurantitems")
-      });
+        if (err) {
+            return handleError(err);
+        } 
+        else {
+            req.flash("success", "The Food has been removed from your menu");
+            res.redirect("/restaurantitems");
+        }
+    });
 });
 
 // --------------Order Created-------------
@@ -289,7 +294,7 @@ app.get("/cuisine/:foodID/:restaurantID", (req, res) => {
     Order.create(neworder, (err,ordercreated)=>{
         if(err){
             console.log(err)
-        } else{
+        } else {
             console.log("Order Created Successfully")
             res.redirect("/mycart")
         }
