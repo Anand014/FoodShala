@@ -7,6 +7,7 @@ var passport = require('passport')
   , LocalStrategy = require('passport-local').Strategy;
 const User = require("./models/user");
 const {middleware , middlewareRestaurant} = require("./middleware");
+const flash = require("connect-flash");
 const { use } = require("passport");
 
 
@@ -16,6 +17,7 @@ app.set("view engine", "ejs");
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static("public"));
+app.use(flash());
 
 // mongoose.connect("mongodb://localhost:27017/foodshalaDB",{ useUnifiedTopology: true, useNewUrlParser: true });
 mongoose.connect("mongodb+srv://Anand:12345@yourblogdb.lhdpi.mongodb.net/foodshalaDB",{ useUnifiedTopology: true, useNewUrlParser: true });
@@ -82,7 +84,7 @@ const Order =  mongoose.model("Order", orderSchema);
 // ---Routes----
 
 app.get("/", (req, res) => {
-    res.render("home")
+    res.render("home",  {message: req.flash("update")})
 });
 
 app.get("/about", (req, res) => {
@@ -90,7 +92,7 @@ app.get("/about", (req, res) => {
 });
 
 app.get("/login", (req, res) => {
-    res.render("login")
+    res.render("login" , {message: req.flash("error")})
 });
 
 app.post("/login", (req, res) => {
@@ -98,18 +100,29 @@ app.post("/login", (req, res) => {
         username : req.body.username,
         password : req.body.password
     });
-    req.login(user, (err) => {
-        if(err){
-            console.log(err);
-            res.redirect("/");
+    req.login(user, function (err) {
+        if (err) {
+          console.log(err);
         } else {
-            passport.authenticate("local") (req, res, () => {
-                console.log("successfully logged in")
-                res.redirect("/");
+          passport.authenticate('local', function(err, user) {
+            if (err) {
+               return next(err);
+               }
+            if (!user) {
+                req.flash("error", "Invalid Email or Password");
+               return res.redirect('/login'); 
+              }
+            req.logIn(user, function(err) {
+              if (err) {
+                return next(err); 
+              }
+              return res.redirect("/");
             });
+          })(req, res);
         }
     });
 });
+
 
 app.get("/logout" , (req, res)=> {
     req.logOut()
@@ -117,7 +130,7 @@ app.get("/logout" , (req, res)=> {
 });
 
 app.get("/signup", (req, res) => {
-    res.render("signup")
+    res.render("signup", {message: req.flash("error2")})
 });
 
 app.post("/signup" , (req, res) =>{
@@ -130,6 +143,7 @@ app.post("/signup" , (req, res) =>{
     }, req.body.password, (err, user) => {
         if(err) {
             console.log(err)
+            req.flash("error2", "A user with the given email is already registered");
             res.redirect("/signup");
         } else {
             passport.authenticate("local")(req, res, () =>{
@@ -139,11 +153,12 @@ app.post("/signup" , (req, res) =>{
         }
     });
 });
+
 // -----------restrologin--------------
 
 
 app.get("/partnersignup",middleware.isLoggedOut, (req, res) => {
-    res.render("partnersignup")
+    res.render("partnersignup", {message: req.flash("error2")})
 });
 
 app.post("/partnersignup" , (req, res) =>{
@@ -156,6 +171,8 @@ app.post("/partnersignup" , (req, res) =>{
     }, req.body.password, (err, restaurant) => {
         if(err) {
             console.log(err)
+            req.flash("error2", "A user with the given email is already registered");
+            res.redirect("/partnersignup");
         } else {
             passport.authenticate("local")(req, res, () =>{
                 console.log("Restaurant is in database")
@@ -190,7 +207,7 @@ app.post("/additems", (req ,res) => {
         if(err){
             console.log(err);
         } else {
-            console.log("Food Created");
+            req.flash("success", "New food is added to your menu")
             res.redirect("/restaurantitems");
         }
     });
@@ -242,7 +259,8 @@ app.get("/restaurantitems",middlewareRestaurant.isLoggedIn, (req, res) => {
                 current: pageNumber,
                 num: count,
                 pages: Math.ceil(count / perPage),
-                checkQuery: checkQuery
+                checkQuery: checkQuery,
+                message: req.flash("success")
                 });
             }
         });
@@ -299,7 +317,7 @@ app.get("/mycart/:orderID", (req, res) => {
         if(err){
             console.log(err)
         } else {
-            console.log("Order Placed")
+            req.flash("success2", "Thank You! For Your Order");
             res.redirect("/myorders");
         }
     });
@@ -336,7 +354,8 @@ app.get("/myorders" ,middleware.isLoggedIn, (req, res) => {
                 current: pageNumber,
                 num: count,
                 pages: Math.ceil(count / perPage),
-                checkQuery: checkQuery
+                checkQuery: checkQuery,
+                message: req.flash("success2")
             });
         }
     });
@@ -389,7 +408,6 @@ app.get("/vieworders/:orderID", (req, res) => {
         if(err){
             console.log(err)
         } else {
-            console.log("Food will be Delivered soon")
             res.redirect("/previousorders");
         }
     });
@@ -401,7 +419,6 @@ app.get("/vieworders/:orderID/decline", (req, res) => {
         if(err){
             console.log(err)
         } else {
-            console.log("Food will be Delivered soon")
             res.redirect("/vieworders");
         }
     });
@@ -420,7 +437,8 @@ app.post("/profileupdate", (req, res) => {
             if(err){
               console.log(err);
             } else {
-              res.redirect("/");
+                req.flash("update", "Your Profile Has Been Updated");
+                res.redirect("/");
             }
           });
 });
